@@ -1,0 +1,173 @@
+// The codes used to create a C++ program for MP1 are as follows:
+
+#include <iostream>
+
+#include <iomanip>
+
+#include <string>
+
+#include <conio.h>
+
+using namespace std;
+
+struct student // This places a grouped of Variables in one name
+
+{
+
+string name;
+
+float quiz, act, pre, finals, raw, gwa;
+
+};
+
+int main()
+
+{
+
+student arr[50][7]; // This multidimensional array will hold 50 rows and 7 columns
+
+int a, b;
+
+float k;
+
+string l;
+
+for (a = 0; a < 50; a++)
+
+{
+
+cout << "Input Student's Name: \n";
+
+getline(cin, arr[a][0].name); // getline allows spaces in between the names
+
+cout << "Input the total quiz score: ";
+
+cin >> arr[a][1].quiz; // this will hold the total quiz score only to the first column
+
+cout << "Input total activity score: ";
+
+cin >> arr[a][2].act; // this will hold the total activity score tp the second column
+
+cout << "Input the total prelims score: ";
+
+cin >> arr[a][3].pre; // this will hold the prelims score to the third column
+
+cout << "Input total finals score ";
+
+cin >> arr[a][4].finals; // this will hold the finals score to the fourth column
+
+cin.ignore(); // this input will ignore the amount of characters we specify when called
+
+}
+
+for (a = 0; a < 50; a++) // this is loop for computing the raw grades
+
+{
+
+arr[a][5].raw = (((arr[a][1].quiz / 450) * 30) + ((arr[a][2].act / 1350) * 15) + ((arr[a][3].pre / 100) * 25) +
+
+((arr[a][4].finals / 100) * 30));
+
+}
+
+for (a = 0; a < 50; a++) // loop for determining the transmuted grades
+
+{// Determine the Transmuted grades of the student
+
+if (arr[a][5].raw > 95.56)
+
+arr[a][6].gwa = 1.00;
+
+else if (arr[a][5].raw > 91.11)
+
+arr[a][6].gwa = 1.25;
+
+else if (arr[a][5].raw > 86.67)
+
+arr[a][6].gwa = 1.50;
+
+else if (arr[a][5].raw > 82.22)
+
+arr[a][6].gwa = 1.75;
+
+else if (arr[a][5].raw > 77.78)
+
+arr[a][6].gwa = 2.00;
+
+else if (arr[a][5].raw > 73.33)
+
+arr[a][6].gwa = 2.25;
+
+else if (arr[a][5].raw > 68.89)
+
+arr[a][6].gwa = 2.50;
+
+else if (arr[a][5].raw > 64.44)
+
+arr[a][6].gwa = 2.75;
+
+else if (arr[a][5].raw >= 60)
+
+arr[a][6].gwa = 3.00;
+
+else
+
+arr[a][6].gwa = 5.00;
+
+}
+
+for (a = 0; a < 50; a++) // loop to output the students raw grade and gwa
+
+{
+
+cout << arr[a][0].name << " raw grade: " << setprecision(3) << arr[a][5].raw << " gwa is: " <<
+
+setprecision(3) << arr[a][6].gwa << endl;
+
+}
+
+for (a = 0; a < 50; a++) // this is a loop to sort the students depending on their computed grades
+
+{
+
+for (b = a + 1; b < 50; b++)
+
+{
+
+if (arr[a][6].gwa > arr[b][6].gwa)
+
+{
+
+k = arr[a][6].gwa;
+
+arr[a][6].gwa = arr[b][6].gwa;
+
+arr[b][6].gwa = k;
+
+l = arr[a][0].name;
+
+arr[a][0].name = arr[b][0].name;
+
+arr[b][0].name = l;
+
+}
+
+}
+
+}
+
+cout << "The top 10 students are: " << endl; // outputs the sorted students
+
+for (a = 0; a < 10; a++)
+
+{
+
+cout << arr[a][0].name << " with a gwa of: " << arr[a][6].gwa << endl;
+
+}
+
+_getch();
+
+return 0;
+
+}
